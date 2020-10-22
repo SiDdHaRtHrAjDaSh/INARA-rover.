@@ -32,12 +32,12 @@ def distMap(frame1, frame2):
 
 cap = cv2.VideoCapture(0)
 
-_, frame1 = cap.read()
-_, frame2 = cap.read()
+bit, frame1 = cap.read()
+bit, frame2 = cap.read()
 
 while(True):
-    _, frame3 = cap.read()
-    rows, cols, _ = np.shape(frame3)
+    bit, frame3 = cap.read()
+    rows, cols, bit = np.shape(frame3)
     dist = distMap(frame1, frame3)
 
     frame1 = frame2
@@ -47,9 +47,9 @@ while(True):
     mod = cv2.GaussianBlur(dist, (9,9), 0)
 
     # apply thresholding
-    _, thresh = cv2.threshold(mod, 100, 255, 0)
+    bit, thresh = cv2.threshold(mod, 100, 255, 0)
     # calculate st dev test
-    _, stDev = cv2.meanStdDev(mod)
+    bit, stDev = cv2.meanStdDev(mod)
 
     cv2.imshow('INARA', mod)
     cv2.putText(frame2, "Standard Deviation - {}".format(round(stDev[0][0],0)), (70, 70), font, 1, (255, 0, 255), 1, cv2.LINE_AA)
